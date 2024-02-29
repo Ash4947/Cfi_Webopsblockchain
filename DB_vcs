@@ -1,0 +1,37 @@
+-- Create table with jsonb column
+CREATE TABLE verified_credentials (
+    id SERIAL PRIMARY KEY,
+    credential_data jsonb
+);
+
+-- Insert JSON data into the table
+INSERT INTO verified_credentials (credential_data)
+VALUES ('{
+  "verified": true,
+  "payload": {
+    "vc": {
+      "@context": ["Array"],
+      "type": ["Array"],
+      "credentialSubject": {"key": "value"}
+    },
+    "sub": "did:web:skounis.github.io",
+    "nbf": 1562950282,
+    "iss": "did:web:skounis.github.io"
+  },
+  "didResolutionResult": {
+    "didDocument": {
+      "@context": ["Array"],
+      "id": "did:web:skounis.github.io",
+      "verificationMethod": ["Array"],
+      "authentication": ["Array"],
+      "assertionMethod": ["Array"]
+    },
+    "didDocumentMetadata": {},
+    "didResolutionMetadata": {"contentType": "application/did+ld+json"}
+  },
+  "issuer": "did:web:skounis.github.io",
+  "signer": {}
+}');
+
+-- Retrieve JSON data
+SELECT * FROM verified_credentials;
